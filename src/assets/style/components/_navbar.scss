@@ -1,0 +1,191 @@
+@use "./variables" as vars;
+.navbar {
+  background-color: vars.$primary;
+  display: flex;
+  justify-content: space-around;
+
+  .logo {
+    margin-left: -100px;
+    padding: vars.$base-padding;
+    .img-logo {
+      width: 40px;
+    }
+    .logo-name {
+      font-style: oblique;
+      font-weight: bold;
+      font-size: larger;
+      color: rgb(39, 11, 64);
+    }
+  }
+  .header-nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .nav-links {
+      margin: vars.$base-margin;
+      padding: vars.$base-padding;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: medium;
+      color: white;
+      &:hover {
+        background-color: rgb(46, 43, 43);
+      }
+    }
+  }
+}
+.landingpage {
+  .landing-header {
+    background-color: vars.$gray;
+    .landing-Nav {
+      display: flex;
+      justify-content: space-between;
+      padding: vars.$base-padding;
+      .logo {
+        display: flex;
+        align-items: center;
+        .img-logo {
+          width: 40px;
+        }
+        .logo-name {
+          font-style: oblique;
+          font-weight: bold;
+          font-size: larger;
+          color: vars.$white;
+          margin-left: 10px;
+        }
+      }
+      .header-nav-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        .nav-links {
+          margin: vars.$base-margin;
+          padding: vars.$base-padding;
+          border-radius: vars.$base-border-radius;
+          font-weight: bold;
+          font-size: medium;
+          color: vars.$white;
+          transition: background-color 0.3s ease;
+          cursor: pointer;
+          &:hover {
+            background-color: vars.$gray; /* Slightly darker for hover */
+          }
+        }
+      }
+    }
+  }
+
+  .landing-content {
+    position: relative;
+    font-family: Arvo;
+    color: vars.$Neon;
+    width: 100%;
+    .contentimage {
+      width: 100%;
+      height: 88vh;
+    }
+    .landing-title {
+      font-family: Caveat;
+      position: absolute;
+      top: 50px;
+      left: 40px;
+      font-size: vars.$font-size-xl * 4;
+      color: vars.$BrightCyan;
+    }
+
+    .landing-subtitle{
+      font-family: Caveat;
+      position: absolute;
+      top: 530px;
+      left: 40px;
+      font-size: vars.$font-size-sm*4;
+      color: vars.$white;
+    }
+
+    .sign-up {
+      position: absolute;
+      top: 50%; /* Adjusted position for visibility */
+      left: 70%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      padding: vars.$base-padding * 2;
+      background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+      color: vars.$black;
+      border-radius: vars.$base-border-radius;
+      box-shadow: vars.$base-box-shadow;
+
+      .signup-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: vars.$font-size-lg;
+        font-weight: bold;
+      }
+
+      hr {
+        margin: 10px 0;
+        border: none;
+        border-top: 1px solid vars.$black;
+      }
+
+      form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$base-margin;
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: vars.$base-margin;
+
+          small {
+            display: block;
+            margin-top: vars.$base-margin * 0.5;
+            margin-bottom: vars.$base-margin * 0.5;
+            color: vars.$error;
+            font-size: vars.$font-size-sm;
+          }
+
+          label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: vars.$font-size-sm;
+            color: vars.$gray;
+          }
+
+          // input {
+          //   padding: vars.$base-padding;
+          //   border: 1px solid vars.$gray;
+          //   border-radius: vars.$base-border-radius;
+          //   font-size: vars.$base-font-size;
+          //   transition: border-color 0.3s ease;
+          //   &:focus {
+          //     border-color: vars.$primary;
+          //     outline: none;
+          //   }
+          // }
+        }
+
+        button {
+          margin-top: 10px;
+          padding: vars.$base-padding;
+          background-color: vars.$primary;
+          color: vars.$white;
+          font-weight: bold;
+          border: none;
+          border-radius: vars.$base-border-radius;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          &:hover {
+            background-color: vars.$BrightCyan;
+          }
+        }
+      }
+    }
+  }
+}
