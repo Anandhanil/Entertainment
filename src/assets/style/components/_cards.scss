@@ -1,20 +1,21 @@
 @use "./variables" as vars;
+@use "sass:map";
 .second-grid {
-  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-family: "Trebuchet MS", Arial, sans-serif;
   color: whitesmoke;
-  margin: 15px auto;
-  width: 85%;
+  margin: 1rem auto;
+  width: 90%;
 
   .grid-title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
     font-weight: bolder;
     margin-bottom: 1rem;
   }
 
   .beat-box {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
   }
 
   .card-beat {
@@ -26,9 +27,7 @@
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    padding: 1rem;
-    text-align: center;
-    z-index: 0;
+    padding: 0.5rem;
 
     &:hover {
       transform: scale(1.05);
@@ -42,89 +41,67 @@
 
     .card-image {
       width: 100%;
-      height: 200px;
+      height: 150px; // Reduced height
       object-fit: cover;
       border-radius: 10px;
-    }
-
-    .card-details {
-      padding: 0.5rem;
-      text-align: center;
-      z-index: 2;
-
-      .card-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin: 0.5rem 0;
-      }
-
-      .card-subtitle {
-        font-size: 1rem;
-        color: #b3b3b3;
-      }
     }
 
     .audio-play-button {
       position: absolute;
       top: 30%;
       left: 40%;
-      // transform: translate(-50%, -50%);
       background-color: rgba(255, 255, 255, 0.8);
       color: #ff9900;
-      font-size: 3rem; /* Adjust size as needed */
+      font-size: 2rem;
       border: none;
       border-radius: 50%;
-      width: 60px; /* Optional: keep consistent with button size */
-      height: 60px;
+      width: 40px;
+      height: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s, transform 0.3s;
-    
+
       &:hover {
         transform: scale(1.1);
         opacity: 1;
       }
-    
-      i {
-        font-size: 2rem; /* Icon size */
-        transition: color 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .card-image {
+        height: 120px;
       }
-    
-      &:active {
-        transform: scale(1);
+
+      .audio-play-button {
+        font-size: 1.5rem;
+        width: 30px;
+        height: 30px;
       }
     }
-    
-    .card-beat:hover .audio-play-button {
-      opacity: 1;
-      visibility: visible;
-    }
-    
   }
 }
 .third-grid {
   display: flex;
+  flex-wrap: wrap;
   color: vars.$white;
-  padding: vars.$base-padding * 2.5;
+  padding: vars.$base-padding;
 
   .topsongs {
-    width: 50%;
-    padding: vars.$base-padding * 10;
+    width: 100%; // Stack on mobile
+    padding: vars.$base-padding * 2;
 
     h1 {
-      margin-bottom: vars.$base-margin * 2;
-      font-size: vars.$font-size-xl;
+      margin-bottom: vars.$base-margin;
+      font-size: clamp(1.5rem, 5vw, vars.$font-size-xl);
     }
 
     .list {
       display: flex;
       flex-direction: column;
-      gap: vars.$base-margin * 2;
+      gap: vars.$base-margin;
     }
 
     .item {
@@ -132,17 +109,16 @@
       align-items: center;
       justify-content: space-between;
       background-color: vars.$gray;
-      padding: vars.$base-padding;
+      padding: 0.5rem;
       border-radius: vars.$base-border-radius;
       box-shadow: vars.$base-box-shadow;
-      position: relative;
 
       .item-image-container {
         position: relative;
 
         .item-image {
-          height: 80px;
-          width: 80px;
+          height: 60px;
+          width: 60px;
           object-fit: cover;
           border-radius: vars.$base-border-radius;
         }
@@ -155,10 +131,9 @@
           background-color: rgba(255, 255, 255, 0.8);
           color: vars.$primary;
           border: none;
-          padding: 0.5rem 1rem;
+          padding: 0.3rem;
           border-radius: 20%;
-          font-size: 1.5rem;
-          cursor: pointer;
+          font-size: 1rem;
           display: none;
         }
 
@@ -169,31 +144,65 @@
 
       .item-info {
         flex: 1;
-        margin-left: vars.$base-margin * 2;
+        margin-left: 0.5rem;
 
         h3 {
-          font-size: vars.$font-size-lg;
-          color: vars.$white;
+          font-size: clamp(1rem, 3vw, vars.$font-size-lg);
         }
 
         p {
-          font-size: vars.$base-font-size;
-          color: vars.$white;
+          font-size: clamp(0.8rem, 2.5vw, vars.$base-font-size);
         }
       }
-
-      .add-button {
-        background-color: vars.$primary;
-        color: vars.$white;
+      .favorite-button {
+        background: none;
         border: none;
-        padding: vars.$base-padding  vars.$base-padding;
-        border-radius: vars.$base-border-radius;
+        font-size: 1.5rem;
         cursor: pointer;
-
+        transition: color 0.3s ease-in-out;
+      
+        i {
+          color: #fff; // White Heart Initially
+        }
+      
         &:hover {
-          background-color: vars.$secondary;
+          i {
+            color: #ff4d4d; // Light Red on Hover
+          }
+        }
+      
+        .favorite {
+          color: #ff0000; // Red Heart when Favorite
         }
       }
+      .add-button {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin: 0 15px;
+        transition: color 0.3s ease-in-out;
+      
+        i {
+          color: #fff; // White Heart Initially
+        }
+      
+        &:hover {
+          i {
+            color: #ff4d4d; // Light Red on Hover
+          }
+        }
+      
+        .favorite {
+          color: #ff0000; // Red Heart when Favorite
+        }
+      }
+      
+    }
+
+    @media (min-width: 1024px) {
+      width: 50%; // Side-by-side on larger screens
+      padding: vars.$base-padding * 5;
     }
   }
 }

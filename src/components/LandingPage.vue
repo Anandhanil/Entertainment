@@ -14,7 +14,9 @@
     <div class="landing-content">
       <img class="contentimage" src="../assets/images/pexels-teddy-2263436.jpg" alt="Sorry....">
       <h1 class="landing-title">Welcome to the world <br> of Music!!!!!</h1>
-      <p class="landing-subtitle">"Music is the heartbeat of the soul – it connects us, <br>inspires us, and makes every moment magical. <br>Dive into the rhythm, feel the melody, <br>and let the world of music bring joy to your life!" 🎵💖</p>
+      <p class="landing-subtitle">"Music is the heartbeat of the soul – it connects us, <br>inspires us, and makes every
+        moment magical. <br>Dive into the rhythm, feel the melody, <br>and let the world of music bring joy to your
+        life!" 🎵💖</p>
       <hr>
       <div class="sign-up">
         <h1 class="signup-title">Create Account</h1>
@@ -53,64 +55,86 @@
 
 
 </template>
-
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, reactive, onMounted } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { alpha, email, helpers, minLength, required } from '@vuelidate/validators';
 import { useRouter } from 'vue-router';
 import { useToast } from 'primevue';
 
-const toast = useToast()
-const router = useRouter()
+const toast = useToast();
+const router = useRouter();
 const form = reactive({
-  name: "",
-  email: "",
-  password: "",
-  nickname: "",
-})
+  name: '',
+  email: '',
+  password: '',
+  nickname: '',
+});
+const rules = computed(() => ({
+  form: {
+    name: {
+      required: helpers.withMessage('Name required', required),
+      alpha: helpers.withMessage('Name must be letters only', alpha),
+    },
+    email: {
+      required: helpers.withMessage('Email required', required),
+      email: helpers.withMessage('Enter a valid email', email),
+    },
+    password: {
+      required: helpers.withMessage('Password required', required),
+      minLength: helpers.withMessage('Password must be at least 8 characters', minLength(8)),
+    },
+    nickname: {
+      required: helpers.withMessage('NickName required', required),
+      alpha: helpers.withMessage('NickName must be letters only', alpha),
+    },
+  },
+}));
 
-const rules = computed(()=> ({
-  form : {
-    name:{
-      required: helpers.withMessage("Name required",required),
-      alpha: helpers.withMessage("Name must be letter",alpha),
-    },
-    email:{
-      required: helpers.withMessage("Email required",required),
-      email: helpers.withMessage("Enter valid email",email),
-    },
-    password:{
-      required: helpers.withMessage("Password required",required),
-      minLength: helpers.withMessage("8 characters must",minLength(8)),
-    },
-    nickname:{
-      required: helpers.withMessage("NickName required",required),
-      alpha: helpers.withMessage("Name must be letter",alpha),
-    },
-  }
-}))
+const v$ = useVuelidate(rules, { form }, { $autoDirty: true });
 
-const v$ = useVuelidate(rules, { form },{ $autoDirty:true })
+
+
 const handleSignUp = async () => {
-  const isValid = await v$.value.$validate()
+  const isValid = await v$.value.$validate();
   if (!isValid) {
     toast.add({
-      severity: "error",
-      summary: "Validation Failed",
-      detail: "Please fill the details.",
+      severity: 'error',
+      summary: 'Validation Failed',
+      detail: 'Please fill in the details correctly.',
       life: 3000,
-    })
-    return
+    });
+    return;
   }
-  // await store.dispatch("signIn", form)
+
+  // Retrieve existing users from localStorage
+  const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+  // Check if email already exists
+  const userExists = existingUsers.some(user => user.email === form.email);
+  if (userExists) {
+    toast.add({
+      severity: 'error',
+      summary: 'Sign Up Failed',
+      detail: 'Email already exists. Try logging in.',
+      life: 3000,
+    });
+    return;
+  }
+
+  // Add new user
+  existingUsers.push({ name: form.name, email: form.email, password: form.password, nickname: form.nickname });
+  localStorage.setItem('users', JSON.stringify(existingUsers));
+
   toast.add({
-    severity: "success",
-    summary: "Sign in successful",
-    detail: `Welcome, ${form.name},Login with your Details`,
+    severity: 'success',
+    summary: 'Sign Up Successful',
+    detail: `Welcome, ${form.name}! Login with your details.`,
     life: 3000,
-  })
-  router.push("/login")
-}
+  });
+
+  router.push('/login');
+};
+
+
 </script>
- 

@@ -1,4 +1,5 @@
-@use './variables' as vars;
+@use "sass:map";
+@use "./variables" as vars;
 
 .coverimage {
   position: relative;
@@ -6,63 +7,68 @@
 
   .img {
     width: 100%;
-    height: 80vh;
+    height: 50vh;
     object-fit: cover;
   }
 
   .details {
     position: absolute;
-    top: 42%;
+    top: 30%;
     left: 5%;
-    color: vars.$yellow;
+    color: vars.$GoldenYellow;
     font-style: italic;
 
-    .image{
-      width: 150px;
-      // border-radius: 250px;
+    .image {
+      width: clamp(100px, 20vw, 150px);
       border-top-left-radius: 65px;
       border-bottom-right-radius: 65px;
-      // border-top-right-radius: 55px;
-      
-      
-      opacity: .4;
+      opacity: 0.4;
     }
 
     .title {
-      font-size: vars.$font-size-xxl;
+      font-size: clamp(1.5rem, 6vw, vars.$font-size-xxl);
       font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
 
     .Singer {
-      font-size: vars.$font-size-lg;
+      font-size: clamp(1rem, 4vw, vars.$font-size-lg);
     }
   }
 
   .play-button {
     position: absolute;
-    top: 80%; /* Center vertically */
-    left: 15%; /* Center horizontally */
-    // transform: translate(-50%, -50%); /* Adjust position for perfect centering */
-    background-color: vars.$primary; /* Button background color */
-    color: vars.$white; /* Text color */
-    font-size:medium; /* Adjust size */
-    border: none;
-    border-radius: 50%; /* Make it circular */
-    width: 50px; /* Width of the button */
-    height: 50px; /* Height of the button */
+    top: 80%;
+    left: 15%;
+    background-color: vars.$RicherBown;
+    color: vars.$LightBeige;
+    font-size: 1rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 10px; /* Add shadow for effect */
-    // transition: transform 0.2s ease;
-
+    transition: 0.3s ease-in-out;
     &:hover {
-      transform: scale(1); /* Slightly enlarge on hover */
+      background-color: #FFA07A; // Light Brown
+    }
+  }
+
+  @media (max-width:768px) {
+    .img {
+      height: 40vh;
     }
 
-    &:active {
-      transform: scale(0.95); /* Slightly shrink on click */
+    .details {
+      top: 20%;
+    }
+
+    .play-button {
+      width: 35px;
+      height: 35px;
+      font-size: 0.9rem;
     }
   }
 }

@@ -11,6 +11,8 @@ import Button from 'primevue/button';
 import router from './router'
 import Toast  from 'primevue/toast'
 import ToastService  from 'primevue/toastservice'
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 const app = createApp(App)
 app.component('Toast',Toast)
