@@ -1,0 +1,62 @@
+@use "./variables" as vars;
+.downloads {
+  padding: vars.$base-padding;
+  background: vars.$trail;
+  min-height: 100vh;
+  .download-title {
+    text-align: center;
+    color: vars.$Neon;
+    font-size: vars.$font-size-xl;
+    margin-bottom: vars.$base-margin;
+  }
+  .empty-download {
+    text-align: center;
+    color: vars.$red;
+    font-size: vars.$font-size-lg;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$base-margin;
+    .download-item {
+      display: flex;
+      align-items: center;
+      gap: vars.$base-margin;
+      padding: vars.$base-padding;
+      background: vars.$DarkGray;
+      border-radius: vars.$base-border-radius;
+      box-shadow: vars.$base-box-shadow;
+      .number {
+        color: vars.$Neon;
+        font-size: vars.$font-size-lg;
+      }
+      .download-img img {
+        width: 70px;
+        height: 70px;
+        border-radius: vars.$base-border-radius;
+      }
+      .download-info {
+        flex: 1;
+        h2 {
+          color: vars.$ElectricBlue;
+        }
+
+        h3 {
+          color: vars.$MutedGray;
+        }
+      }
+      .delete-download {
+        background: vars.$error;
+        padding: vars.$base-padding;
+        border: none;
+        border-radius: vars.$base-border-radius;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background: vars.$error;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

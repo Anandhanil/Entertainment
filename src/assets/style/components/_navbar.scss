@@ -1,45 +1,35 @@
 @use "./variables" as vars;
-// Base styles remain unchanged unless specified
 @use "sass:map";
-
-// Navigation Bar
 .navbar {
   background-color: vars.$DarkTeal;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: vars.$base-padding;
-
   .logo {
-    margin-left: 0; // Remove negative margin for responsiveness
+    margin-left: 0;
     padding: vars.$base-padding;
     display: flex;
     align-items: center;
-
     .img-logo {
-      width: 30px; // Smaller logo on mobile
+      width: 30px;
     }
-
     .logo-name {
       font-style: oblique;
       font-weight: bold;
       font-size: 1.2rem;
-      // color: rgb(39, 11, 64);
       color: vars.$LightBeige;
     }
   }
-
-  .hamburger{
+  .hamburger {
     display: none;
   }
-
   .header-nav-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-
     .nav-links {
       margin: 0.5rem;
       padding: 0.5rem;
@@ -47,33 +37,30 @@
       font-weight: bold;
       font-size: 0.9rem;
       color: white;
-
+      a {
+        color: white !important;
+      }
       &:hover {
         background-color: rgb(46, 43, 43);
       }
-
-      .logout{
+      .logout {
         background-color: inherit;
         border: none;
-        color:vars.$BoneWhite ;
-        
+        color: vars.$BoneWhite;
       }
     }
   }
-
   @media (max-width: 768px) {
     .hamburger {
       display: block;
       cursor: pointer;
-      position: relative; 
-      z-index: 20; 
-    
+      position: relative;
+      z-index: 20;
       .pi {
         font-size: 24px;
         color: white;
       }
     }
-  
     .header-nav-list {
       position: absolute;
       top: 0;
@@ -88,20 +75,18 @@
       box-shadow: vars.$base-box-shadow;
       z-index: 11;
       overflow: hidden;
-  
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
-  
       &.active {
         display: flex;
         transform: translateX(0);
         visibility: visible;
         opacity: 1;
         pointer-events: auto;
-        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease-in;
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+          opacity 0.3s ease-in;
       }
-  
       .nav-links {
         width: 100%;
         text-align: center;
@@ -113,21 +98,17 @@
 .landingpage {
   .landing-header {
     background-color: vars.$BoneWhite;
-
     .landing-Nav {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       padding: vars.$base-padding;
-
       .logo {
         display: flex;
         align-items: center;
-
         .img-logo {
           width: 30px;
         }
-
         .logo-name {
           font-style: oblique;
           font-weight: bold;
@@ -136,12 +117,10 @@
           margin-left: 0.5rem;
         }
       }
-
       .header-nav-list {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
-
         .nav-links {
           margin: 0.5rem;
           padding: 0.5rem;
@@ -150,19 +129,16 @@
       }
     }
   }
-
   .landing-content {
     position: relative;
     font-family: Arvo;
     color: vars.$Neon;
     width: 100%;
-
     .contentimage {
       width: 100%;
       height: 100vh;
       object-fit: cover;
     }
-
     .landing-title {
       font-family: Caveat;
       position: absolute;
@@ -171,7 +147,6 @@
       font-size: clamp(2rem, 8vw, vars.$font-size-xl * 4);
       color: vars.$DarkCyan;
     }
-
     .landing-subtitle {
       font-family: Caveat;
       position: absolute;
@@ -180,7 +155,6 @@
       font-size: clamp(1rem, 4vw, vars.$font-size-sm * 4);
       color: vars.$white;
     }
-
     .sign-up {
       position: absolute;
       top: 50%;
@@ -193,45 +167,37 @@
       color: vars.$black;
       border-radius: vars.$base-border-radius;
       box-shadow: vars.$base-box-shadow;
-
       .signup-title {
         font-size: clamp(1rem, 5vw, vars.$font-size-lg);
       }
-
       form {
         display: flex;
         flex-direction: column;
         gap: vars.$base-margin;
-
         .input-group {
           display: flex;
           flex-direction: column;
-
           label {
             margin-bottom: vars.$base-padding;
             color: vars.$purple;
             font-weight: 500;
           }
-
           input {
             padding: vars.$base-padding;
             border: vars.$base-border-thickness solid vars.$gray;
             border-radius: vars.$base-border-radius;
             font-size: vars.$base-font-size;
-
             &:focus {
               border-color: vars.$Neon;
               outline: none;
             }
           }
-
           small {
             color: vars.$error;
             margin-top: vars.$base-padding;
             font-size: vars.$font-size-sm;
           }
         }
-
         button {
           padding: vars.$base-padding;
           background-color: vars.$Neon;
@@ -241,7 +207,6 @@
           font-size: vars.$base-font-size;
           cursor: pointer;
           transition: background-color 0.3s ease;
-
           &:hover {
             background-color: vars.$purple;
           }
@@ -249,18 +214,14 @@
       }
     }
   }
-  /* Media Queries */
   @media (max-width: 998px) {
     .landing-content {
-      // color: red;
       .contentimage {
         height: 100vh;
       }
-
       .landing-subtitle {
-        top: 35% ; 
+        top: 35%;
       }
-
       .sign-up {
         top: 80%;
         left: 50%;
@@ -272,11 +233,9 @@
       .contentimage {
         height: 120vh;
       }
-
       .landing-subtitle {
         top: 15%;
       }
-
       .sign-up {
         padding: vars.$base-padding * 3;
         width: 85%;
@@ -286,5 +245,3 @@
     }
   }
 }
-
-

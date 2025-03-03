@@ -1,0 +1,99 @@
+@use "./variables" as vars;
+@use "sass:math";
+.favourites {
+  padding: vars.$base-padding * 2;
+  text-align: center;
+  background-color: vars.$DarkGray;
+  height: 100%;
+  .fav-title {
+    font-size: vars.$font-size-xl;
+    margin-bottom: vars.$base-margin * 2;
+    color: vars.$Neon;
+  }
+  .empty-fav {
+    font-size: vars.$font-size-lg;
+    color: vars.$MutedGray;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$base-margin;
+    .fav-item {
+      display: grid;
+      grid-template-columns: 0.5fr 1fr 2fr 1fr;
+      align-items: center;
+      padding: vars.$base-padding;
+      background-color: vars.$DarkGray;
+      border-radius: vars.$base-border-radius;
+      box-shadow: vars.$base-box-shadow;
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.03);
+      }
+      .number {
+        font-size: vars.$font-size-lg;
+        color: vars.$GoldenYellow;
+      }
+      .fav-img-container {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        .fav-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: vars.$base-border-radius;
+        }
+        .play-button {
+          position: absolute;
+          bottom: 5px;
+          right: 5px;
+          background: vars.$Neon;
+          border: none;
+          width: 35px;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          cursor: pointer;
+          i {
+            color: vars.$white;
+            font-size: vars.$base-font-size;
+          }
+
+          &:hover {
+            background: vars.$Neon, 10%;
+          }
+        }
+      }
+      .fav-info {
+        text-align: left;
+        h2 {
+          font-size: vars.$font-size-lg;
+          color: vars.$ElectricBlue;
+          margin-bottom: 0.5rem;
+        }
+        h3 {
+          font-size: vars.$font-size-sm;
+          color: vars.$MutedGray;
+        }
+      }
+      .fav-actions {
+        display: flex;
+        justify-content: center;
+        .remove-fav {
+          background: vars.$error;
+          color: vars.$white;
+          padding: vars.$base-padding;
+          border: none;
+          border-radius: vars.$base-border-radius;
+          cursor: pointer;
+          &:hover {
+            background: vars.$error;
+          }
+        }
+      }
+    }
+  }
+}

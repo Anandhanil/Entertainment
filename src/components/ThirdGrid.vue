@@ -14,21 +14,12 @@
             <h3>{{ beat.title }}</h3>
             <p>{{ beat.subtitle }}</p>
           </div>
-
-          <!-- Favorite Button -->
-          <!-- <button class="favorite-button" @click="toggleFavorite(beat)">
-            <i :class="beat.isFavorite ? 'fas fa-heart favorite' : 'far fa-heart'"></i>
-          </button> -->
-
-          <button class="favorite-button" @click="toggleFavorite(beat)">
-            <i :class="favoriteSongs.some(fav => fav.id === beat.id) ? 'fas fa-heart favorite' : 'far fa-heart'"></i>
+          <button class="favorite-button" @click="toggleFavorite(beat, 'beats')">
+            <i :class="['fa', isFavorite(beat, 'beats') ? 'fas fa-heart favorite' : 'far fa-heart']"></i>
           </button>
-
-          <button class="add-button" @click="toggleAdd(beat)">
-            <i :class="beat.isAdd ? 'fa fa-square-check favorite' : 'far fa-square-plus'"></i>
+          <button class="download-button" @click="downloadSong(beat)">
+            <i :class="beat.isDownloaded ? 'fa fa-check-circle downloaded' : 'fa fa-download'"></i>
           </button>
-
-          <!-- <button class="add-button">+</button> -->
           <audio :id="'audio-beat-' + beat.id" class="audio-player">
             <source :src="beat.audioSrc" type="audio/mpeg" />
             Your browser does not support the audio element.
@@ -36,7 +27,6 @@
         </div>
       </div>
     </div>
-
     <div class="topsongs">
       <h1>Top Songs</h1>
       <div class="list">
@@ -51,14 +41,11 @@
             <h3>{{ song.title }}</h3>
             <p>{{ song.subtitle }}</p>
           </div>
-
-          <!-- Favorite Button -->
-          <button class="favorite-button" @click="toggleFavorite(song)">
-            <i :class="song.isFavorite ? 'fas fa-heart favorite' : 'far fa-heart'"></i>
+          <button class="favorite-button" @click="toggleFavorite(song, 'music')">
+            <i :class="['fa', isFavorite(song, 'music') ? 'fas fa-heart favorite' : 'far fa-heart']"></i>
           </button>
-
-          <button class="add-button" @click="toggleAdd(song)">
-            <i :class="song.isAdd ? 'fa fa-square-check favorite' : 'far fa-square-plus'"></i>
+          <button class="download-button" @click="downloadSong(song)">
+            <i :class="song.isDownloaded ? 'fa fa-check-circle downloaded' : 'fa fa-download'"></i>
           </button>
           <audio :id="'audio-music-' + song.id" class="audio-player">
             <source :src="song.audioSrc" type="audio/mpeg" />
@@ -69,57 +56,27 @@
     </div>
   </div>
 </template>
-
-
-
 <script setup>
-import { onMounted, ref, watch } from "vue";
-
-
+import store from "@/Store"
 defineProps({
   beats: Array,
   music: Array,
   togglePlay: Function,
-});
-
-// const toggleFavorite = (item) => {
-//   item.isFavorite = !item.isFavorite;
-// };
-
-const favoriteSongs = ref([]);
-
-// **1️⃣ Load favorites from localStorage when the component is mounted**
-onMounted(() => {
-  const storedFavorites = localStorage.getItem("favoriteSongs");
-  if (storedFavorites) {
-    favoriteSongs.value = JSON.parse(storedFavorites);
-  }
-});
-
-// **2️⃣ Toggle favorite & Save to localStorage**
-const toggleFavorite = (item) => {
-  const index = favoriteSongs.value.findIndex((fav) => fav.id === item.id);
-
-  if (index !== -1) {
-    // If the song is already favorited, remove it
-    favoriteSongs.value.splice(index, 1);
-  } else {
-    // If not, add to favorites
-    favoriteSongs.value.push(item);
-  }
-
-  // **3️⃣ Save updated favorites to localStorage**
-  localStorage.setItem("favoriteSongs", JSON.stringify(favoriteSongs.value));
-};
-
-// **4️⃣ Automatically update items to match favorite status**
-watch(favoriteSongs, (newFavorites) => {
-  [...beats, ...music].forEach((item) => {
-    item.isFavorite = newFavorites.some((fav) => fav.id === item.id);
-  });
-}, { deep: true });
-
-const toggleAdd = (item) => {
-  item.isAdd = !item.isAdd;
-};
+})
+const toggleFavorite = (item, type) => {
+  store.commit("toggleFavorite", { ...item, type })
+}
+const isFavorite = (item, type) => {
+  return store.getters.isFavorite(item, type)
+}
+const downloadSong = (item) => {
+  const link = document.createElement("a")
+  link.href = item.audioSrc
+  link.download = item.title + ".mp3"
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  item.isDownloaded = true;
+  store.commit("addDownload", { ...item })
+}
 </script>

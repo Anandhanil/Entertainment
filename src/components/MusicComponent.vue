@@ -1,40 +1,30 @@
 <template>
   <Header />
   <div class="coverimage">
-    <img class="img" src="../assets/images/guitar-classical-guitar-acoustic-guitar-electric-guitar.webp" alt="coverpage" />
+    <img class="img" src="../assets/images/guitar-classical-guitar-acoustic-guitar-electric-guitar.webp"
+      alt="coverpage" />
     <div class="details">
       <img class="image" src="../assets/images/coldplay-4.jpg" alt="image" />
       <h1 class="title">Sky full of stars</h1>
       <h2 class="Singer">ColdPlay</h2>
     </div>
-
-    <!-- Play/Pause Button -->
     <button class="play-button" @click="togglePlay()">
       {{ isMainAudioPlaying ? "❚❚" : "▶" }}
     </button>
-
-    <!-- Audio Reference -->
     <audio ref="audioPlayer">
       <source src="../assets/audio/A-Sky-Full-Of-Stars.mp3" type="audio/mpeg" />
     </audio>
   </div>
-
-  <!-- Passing Props to Child -->
   <SecondGrid :beats="beats" :music="music" :togglePlay="togglePlay" />
   <ThirdGrid :beats="beats" :music="music" :togglePlay="togglePlay" />
 </template>
-
-
 <script setup>
-import { ref } from "vue";
-import SecondGrid from "./SecondGrid.vue";
-import Header from "./Header.vue";
-import ThirdGrid from "./ThirdGrid.vue";
-
-
-const isMainAudioPlaying = ref(false);
-const audioPlayer = ref(null);
-
+import { ref } from "vue"
+import SecondGrid from "./SecondGrid.vue"
+import Header from "./Header.vue"
+import ThirdGrid from "./ThirdGrid.vue"
+const isMainAudioPlaying = ref(false)
+const audioPlayer = ref(null)
 const beats = ref([
   {
     id: 1,
@@ -76,8 +66,7 @@ const beats = ref([
     audioSrc: new URL('../assets/audio/O Maahi.mp3', import.meta.url).href,
     isPlaying: false,
   },
-]);
-
+])
 const music = ref([
   {
     id: 1,
@@ -122,56 +111,46 @@ const music = ref([
     isPlaying: false,
   }
 ])
-
-// Unified play/pause function
 const togglePlay = (item = null, currentArray = null) => {
-  const allTracks = [...beats.value, ...music.value];
-
-  // If playing from a child component, pause the main audio
+  const allTracks = [...beats.value, ...music.value]
   if (item && isMainAudioPlaying.value) {
-    audioPlayer.value.pause();
-    isMainAudioPlaying.value = false;
+    audioPlayer.value.pause()
+    isMainAudioPlaying.value = false
   }
-
-  // Pause all child tracks if main audio plays
   if (!item) {
     allTracks.forEach((track) => {
       if (track.audioRef) {
-        track.audioRef.pause();
-        track.isPlaying = false;
+        track.audioRef.pause()
+        track.isPlaying = false
       }
-    });
-
-    // Play/Pause main audio
+    })
     if (audioPlayer.value) {
       if (!isMainAudioPlaying.value) {
         if (audioPlayer.value.currentTime < 18) {
-          audioPlayer.value.currentTime = 18;
+          audioPlayer.value.currentTime = 18
         }
         audioPlayer.value.play();
       } else {
         audioPlayer.value.pause();
-        audioPlayer.value.currentTime = 0;
+        audioPlayer.value.currentTime = 0
       }
       isMainAudioPlaying.value = !isMainAudioPlaying.value;
     }
   } else if (item) {
-    // Play/Pause the child audio
     allTracks.forEach((track) => {
       if (track !== item && track.audioRef) {
-        track.audioRef.pause();
-        track.isPlaying = false;
+        track.audioRef.pause()
+        track.isPlaying = false
       }
-    });
-
+    })
     if (item.audioRef) {
       if (item.isPlaying) {
-        item.audioRef.pause();
+        item.audioRef.pause()
       } else {
-        item.audioRef.play();
+        item.audioRef.play()
       }
-      item.isPlaying = !item.isPlaying;
+      item.isPlaying = !item.isPlaying
     }
   }
-};
+}
 </script>

@@ -10,9 +10,12 @@
         <audio :ref="(el) => (beat.audioRef = el)">
           <source :src="beat.audioSrc" type="audio/mpeg" />
         </audio>
+        <div class="song-info">
+          <h2> {{ beat.title }}</h2>
+          <p> {{ beat.subtitle }}</p>
+        </div>
       </div>
     </div>
-
     <h1 class="grid-title">Trending Music</h1>
     <div class="beat-box">
       <div class="card-beat" v-for="track in music" :key="track.id">
@@ -23,15 +26,18 @@
         <audio :ref="(el) => (track.audioRef = el)">
           <source :src="track.audioSrc" type="audio/mpeg" />
         </audio>
+        <div class="song-info">
+          <h2> {{ track.title }}</h2>
+          <p> {{ track.subtitle }}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script setup>
 defineProps({
   beats: Array,
   music: Array,
   togglePlay: Function,
-});
+})
 </script>

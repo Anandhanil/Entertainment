@@ -1,18 +1,15 @@
 @use "./variables" as vars;
 @use "sass:map";
-
 .loginlanding-content {
   position: relative;
   font-family: Arvo;
   color: vars.$DarkGray;
   width: 100%;
-
   .logincontent-image {
     width: 100%;
     height: 100vh;
     object-fit: cover;
   }
-
   .loginlanding-title {
     font-family: Caveat;
     position: absolute;
@@ -21,7 +18,6 @@
     font-size: clamp(2rem, 8vw, vars.$font-size-xl * 4);
     color: vars.$trail;
   }
-
   .Log-in {
     position: absolute;
     top: 50%;
@@ -34,45 +30,37 @@
     color: vars.$black;
     border-radius: vars.$base-border-radius;
     box-shadow: vars.$base-box-shadow;
-
     .Login-title {
       font-size: clamp(1rem, 5vw, vars.$font-size-lg);
     }
-
     form {
       display: flex;
       flex-direction: column;
       gap: vars.$base-margin;
-
       .input-group {
         display: flex;
         flex-direction: column;
-
         label {
           margin-bottom: vars.$base-padding;
           color: vars.$MutedGray;
           font-weight: 500;
         }
-
         input {
           padding: vars.$base-padding;
           border: vars.$base-border-thickness solid vars.$gray;
           border-radius: vars.$base-border-radius;
           font-size: vars.$base-font-size;
-
           &:focus {
             border-color: vars.$VibrantPurple;
             outline: none;
           }
         }
-
         small {
           color: vars.$error;
           margin-top: vars.$base-padding;
           font-size: vars.$font-size-sm;
         }
       }
-
       button {
         padding: vars.$base-padding;
         background-color: vars.$VibrantPurple;
@@ -82,12 +70,10 @@
         font-size: vars.$base-font-size;
         cursor: pointer;
         transition: background-color 0.3s ease;
-
         &:hover {
           background-color: vars.$ElectricBlue;
         }
       }
-
       .signup {
         width: 100%;
       }
@@ -104,12 +90,9 @@
       top: 65%;
     }
   }
-  
   @media (max-width: 768px) {
     .logincontent-image {
       height: 100vh;
     }
   }
 }
-
-/* ✅ Place media queries OUTSIDE the `.Log-in` block */

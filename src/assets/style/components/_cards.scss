@@ -5,19 +5,16 @@
   color: whitesmoke;
   margin: 1rem auto;
   width: 90%;
-
   .grid-title {
     font-size: clamp(1.5rem, 5vw, 2rem);
     font-weight: bolder;
     margin-bottom: 1rem;
   }
-
   .beat-box {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 1rem;
   }
-
   .card-beat {
     background-color: #1e1e1e;
     color: #fff;
@@ -28,24 +25,20 @@
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
     padding: 0.5rem;
-
     &:hover {
       transform: scale(1.05);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-
       .audio-play-button {
         opacity: 1;
         visibility: visible;
       }
     }
-
     .card-image {
       width: 100%;
-      height: 150px; // Reduced height
+      height: 150px;
       object-fit: cover;
       border-radius: 10px;
     }
-
     .audio-play-button {
       position: absolute;
       top: 30%;
@@ -63,18 +56,15 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s, transform 0.3s;
-
       &:hover {
         transform: scale(1.1);
         opacity: 1;
       }
     }
-
     @media (max-width: 768px) {
       .card-image {
         height: 120px;
       }
-
       .audio-play-button {
         font-size: 1.5rem;
         width: 30px;
@@ -88,22 +78,18 @@
   flex-wrap: wrap;
   color: vars.$white;
   padding: vars.$base-padding;
-
   .topsongs {
-    width: 100%; // Stack on mobile
+    width: 100%;
     padding: vars.$base-padding * 2;
-
     h1 {
       margin-bottom: vars.$base-margin;
       font-size: clamp(1.5rem, 5vw, vars.$font-size-xl);
     }
-
     .list {
       display: flex;
       flex-direction: column;
       gap: vars.$base-margin;
     }
-
     .item {
       display: flex;
       align-items: center;
@@ -112,17 +98,14 @@
       padding: 0.5rem;
       border-radius: vars.$base-border-radius;
       box-shadow: vars.$base-box-shadow;
-
       .item-image-container {
         position: relative;
-
         .item-image {
           height: 60px;
           width: 60px;
           object-fit: cover;
           border-radius: vars.$base-border-radius;
         }
-
         .play-button {
           position: absolute;
           top: 50%;
@@ -136,16 +119,13 @@
           font-size: 1rem;
           display: none;
         }
-
         &:hover .play-button {
           display: flex;
         }
       }
-
       .item-info {
         flex: 1;
         margin-left: 0.5rem;
-
         h3 {
           font-size: clamp(1rem, 3vw, vars.$font-size-lg);
         }
@@ -160,48 +140,38 @@
         font-size: 1.5rem;
         cursor: pointer;
         transition: color 0.3s ease-in-out;
-      
+        margin-right: 5px;
         i {
-          color: #fff; // White Heart Initially
+          color: #fff;
         }
-      
         &:hover {
           i {
-            color: #ff4d4d; // Light Red on Hover
+            color: #ff4d4d;
           }
         }
-      
         .favorite {
-          color: #ff0000; // Red Heart when Favorite
+          color: #ff0000;
         }
       }
-      .add-button {
-        background: none;
+      .download-button {
+        background: vars.$secondary;
         border: none;
-        font-size: 1.5rem;
+        padding: 6.5px;
+        border-radius: vars.$base-border-radius;
         cursor: pointer;
-        margin: 0 15px;
-        transition: color 0.3s ease-in-out;
-      
-        i {
-          color: #fff; // White Heart Initially
-        }
-      
+
         &:hover {
-          i {
-            color: #ff4d4d; // Light Red on Hover
-          }
+          background: vars.$green, 10%;
         }
-      
-        .favorite {
-          color: #ff0000; // Red Heart when Favorite
+
+        &.downloaded {
+          background: vars.$info;
+          pointer-events: none;
         }
       }
-      
     }
-
     @media (min-width: 1024px) {
-      width: 50%; // Side-by-side on larger screens
+      width: 50%;
       padding: vars.$base-padding * 5;
     }
   }

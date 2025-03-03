@@ -27,43 +27,35 @@
             <InputText id="name" placeholder="Enter your Name" type="text" v-model="form.name" />
             <small v-for="(error, index) in v$.form.name.$errors" :key="index">{{ error.$message }}</small>
           </div>
-
           <div class="input-group">
             <label for="email">Email:</label>
             <InputText id="email" placeholder="Enter your email " type="email" v-model="form.email" />
             <small v-for="(error, index) in v$.form.email.$errors" :key="index">{{ error.$message }}</small>
           </div>
-
           <div class="input-group">
             <label for="password">Password:</label>
             <InputText id="password" placeholder="Enter your Password" type="password" v-model="form.password" />
             <small v-for="(error, index) in v$.form.password.$errors" :key="index">{{ error.$message }}</small>
           </div>
-
           <div class="input-group">
             <label for="nickname">NickName:</label>
             <InputText id="nickname" placeholder="NickName" type="text" v-model="form.nickname" />
             <small v-for="(error, index) in v$.form.nickname.$errors" :key="index">{{ error.$message }}</small>
           </div>
-
           <button type="submit">Sign Up</button>
         </form>
       </div>
-
     </div>
   </div>
-
-
 </template>
 <script setup>
-import { computed, reactive, onMounted } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { alpha, email, helpers, minLength, required } from '@vuelidate/validators';
-import { useRouter } from 'vue-router';
-import { useToast } from 'primevue';
-
-const toast = useToast();
-const router = useRouter();
+import { computed, reactive, onMounted } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { alpha, email, helpers, minLength, required } from '@vuelidate/validators'
+import { useRouter } from 'vue-router'
+import { useToast } from 'primevue'
+const toast = useToast()
+const router = useRouter()
 const form = reactive({
   name: '',
   email: '',
@@ -89,29 +81,21 @@ const rules = computed(() => ({
       alpha: helpers.withMessage('NickName must be letters only', alpha),
     },
   },
-}));
-
-const v$ = useVuelidate(rules, { form }, { $autoDirty: true });
-
-
-
+}))
+const v$ = useVuelidate(rules, { form }, { $autoDirty: true })
 const handleSignUp = async () => {
-  const isValid = await v$.value.$validate();
+  const isValid = await v$.value.$validate()
   if (!isValid) {
     toast.add({
       severity: 'error',
       summary: 'Validation Failed',
       detail: 'Please fill in the details correctly.',
       life: 3000,
-    });
-    return;
+    })
+    return
   }
-
-  // Retrieve existing users from localStorage
-  const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-
-  // Check if email already exists
-  const userExists = existingUsers.some(user => user.email === form.email);
+  const existingUsers = JSON.parse(localStorage.getItem('users')) || []
+  const userExists = existingUsers.some(user => user.email === form.email)
   if (userExists) {
     toast.add({
       severity: 'error',
@@ -119,22 +103,16 @@ const handleSignUp = async () => {
       detail: 'Email already exists. Try logging in.',
       life: 3000,
     });
-    return;
+    return
   }
-
-  // Add new user
-  existingUsers.push({ name: form.name, email: form.email, password: form.password, nickname: form.nickname });
-  localStorage.setItem('users', JSON.stringify(existingUsers));
-
+  existingUsers.push({ name: form.name, email: form.email, password: form.password, nickname: form.nickname })
+  localStorage.setItem('users', JSON.stringify(existingUsers))
   toast.add({
     severity: 'success',
     summary: 'Sign Up Successful',
     detail: `Welcome, ${form.name}! Login with your details.`,
     life: 3000,
-  });
-
-  router.push('/login');
-};
-
-
+  })
+  router.push('/login')
+}
 </script>
