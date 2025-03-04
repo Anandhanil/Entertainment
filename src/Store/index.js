@@ -9,24 +9,24 @@ const store = createStore({
         (item) => item.id === song.id && item.type === song.type
       );
       if (index !== -1) {
-        state.favoriteSongs.splice(index, 1);
+        state.favoriteSongs.splice(index, 1)
       } else {
-        state.favoriteSongs.push(song);
+        state.favoriteSongs.push(song)
       }
     },
     addDownload(state, payload) {
-      state.downloads.push(payload);
-      localStorage.setItem("downloads", JSON.stringify(state.downloads));
+      state.downloads.push(payload)
+      localStorage.setItem("downloads", JSON.stringify(state.downloads))
     },
     removeDownload(state, payload) {
       state.downloads = state.downloads.filter(
         (song) => song.id !== payload.id
       );
-      localStorage.setItem("downloads", JSON.stringify(state.downloads));
+      localStorage.setItem("downloads", JSON.stringify(state.downloads))
     },
     loadDownloads(state) {
       const storedDownloads =
-        JSON.parse(localStorage.getItem("downloads")) || [];
+        JSON.parse(localStorage.getItem("downloads")) || []
       state.downloads = storedDownloads;
     },
   },
